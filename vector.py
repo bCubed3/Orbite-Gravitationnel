@@ -38,18 +38,17 @@ class Vector:
     def __round__(self):
         return Vector([round(self[i]) for i in range(len(self))])
 
-    def dist(self, other):
+    def dist(self, other=(0, 0)):
         return math.sqrt((self[0] - other[0]) ** 2 + (self[1] - other[1]) ** 2)
 
+    def vdist(self, other):
+        return Vector((other.x - self.x, other.y - self.y))
+
     def norm(self):
+        v = []
         for i in range(len(self)):
-            if self[i] > 0:
-                self[i] = 1
-            elif self[i] == 0:
-                self[i] = 0
-            elif self[i] < 0:
-                self[i] = -1
-        return Vector(self.vect)
+            v.append(self[i] / self.dist())
+        return Vector(v)
 
     def flip(self):
         return Vector((self.y, self.x))

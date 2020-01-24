@@ -24,8 +24,13 @@ sun = Body(2 * 10**30, 30, (255, 0, 0), [400, 400], [0, 0], sim_speed)
 bodies.append(sun)
 earth = Body(6 * 10**24, 5, (0, 255, 0), [150, 400], [0, 0.7], sim_speed)
 bodies.append(earth)
-super_earth = Body(6*10**26, 10, (0, 0, 255), [120, 300], [0.2, 0.4], sim_speed)
+super_earth = Body(6*10**26, 10, (0, 0, 255), [120, 300], [0.2, 0.5], sim_speed)
 bodies.append(super_earth)
+for i in range(0):
+    size_t = random.randint(1, 28)
+    bodies.append(Body(10**size_t, size_t,
+                       (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
+                       [random.randint(0, width), random.randint(0, height)], [random.random(), random.random()], sim_speed))
 #asteroid = Body(0.07, 3, (127, 127, 127), [149.972, 400], [0, 0], sim_speed)
 #bodies.append(asteroid)
 
@@ -58,4 +63,4 @@ while True:
     #print(sun.pos.vect)
 
     pygame.display.flip()
-    time.sleep(0.0001)
+    time.sleep(0.01)

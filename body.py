@@ -10,14 +10,19 @@ class Body:
         self.velocity = Vector(velocity) # this should be a vector
         self.G = 6.674 * 10**-11
         self.sim_speed = sim_speed
-        self.accel = Vector((0, 0))
 
     def find_attractions(self, bodies):
         for body in bodies:
             if body == self:
                 pass
             else:
-                attraction = self.G * self.mass * body.mass * (self.pos.dist(body.pos) * 10**9)**-2
+                d = self.pos.dist(body.pos)
+                attraction = self.G * self.mass * body.mass * (d * 10**9)**-2
+                if d < self.size + body.size:
+                    self.mass = self.mass + body.mass
+                    self.size = round(self.size + body.size / 3)
+                    self.velocity = self.velocity + body.velocity / body.mass
+                    body.remove(bodies)
                 #print("a :", attraction, "v :", self.velocity.vect)
                 self.velocity = self.velocity + (self.pos.vdist(body.pos).norm() * (attraction / self.mass))
 
@@ -26,3 +31,5 @@ class Body:
         #print("c :", self.color, "v :", round(self.velocity).vect, "pos :", round(self.pos).vect)
         pygame.draw.circle(screen, self.color, round(self.pos), self.size)
 
+    def remove(self, l):
+        l.remove(self)

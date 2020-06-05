@@ -20,12 +20,14 @@ sx = 0
 sy = 0
 
 bodies = []
-sun = Body(2 * 10**30, 30, (255, 0, 0), [400, 400], [0, 0], sim_speed)
+zoom = 4
+sun = Body(2 * 10**30, 10, (255, 0, 0), [400, 400], [0, 0], sim_speed)
 bodies.append(sun)
-earth = Body(6 * 10**24, 5, (0, 255, 0), [150, 400], [0, 0.7], sim_speed)
+earth = Body(6 * 10**24, 3, (0, 255, 0), [400 - 15, 400], [0, 3 * 10**-1], sim_speed)
 bodies.append(earth)
-super_earth = Body(6*10**26, 10, (0, 0, 255), [120, 300], [0.2, 0.5], sim_speed)
-bodies.append(super_earth)
+jupiter = Body(2*10**27, 5, (0, 0, 255), [400 - 73, 400], [0, 1.3 * 10**-1], sim_speed)
+bodies.append(jupiter)
+center = Vector((400, 400))
 for i in range(0):
     size_t = random.randint(1, 28)
     bodies.append(Body(10**size_t, size_t,
@@ -59,8 +61,8 @@ while True:
         pygame.draw.circle(screen, c, [sx, sy], round(math.log(math.ceil(10**size), 10)) + 1)
     for i in bodies:
         i.find_attractions(bodies)
-        i.show(screen)
+        i.show(screen, zoom, center)
     #print(sun.pos.vect)
-
+    print("Position du soleil :", sun.pos.vect)
     pygame.display.flip()
     time.sleep(0.01)
